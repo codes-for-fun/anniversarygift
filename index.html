@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Our Story</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<div id="letter-overlay">
+    <div id="lock-screen">
+        <h2 id="lock-status">Connect the dots to unlock the final letter</h2>
+        <canvas id="heartCanvas"></canvas>
+    </div>
+    
+    <div id="letter-screen" style="display: none; flex-direction: column; align-items: center;">
+        <div class="letter-container">
+            <img src="images/letter.png" id="final-letter-img">
+            
+            <div class="letter-text-overlay">
+                <h2 class="letter-heading">To the love of my life 🖤</h2>
+                
+                <p>I hope you enjoyed this personalized bookshelf.</p>
+                
+                <p>I tried to capture all the beautiful moments we have shared so far, and I hope we keep creating more in future.</p>
+
+                <p>10 years later, when it's our 20th anniversary, I hope we are sitting in our own home together, looking back at this and remembering all these moments.</p>
+               
+                <p>When you are sad at life or mad at me, I hope you come back here and realize life is actually pretty great with me in it.</p>
+
+                <p>Since you once asked me a very important question in a special way - it's only right that I do the same - so here it is!</p>
+                
+<div class="coded-message-container">
+    <p class="coded-message">
+        23-15-21-12-4 / 25-15-21 / 12-9-11-5 / 20-15 / 19-16-5-14-4 / 20-8-5 / 18-5-19-20 / 15-6 / 25-15-21-18 / 12-9-6-5 / 23-9-20-8 / 13-5?
+    </p>
+
+    <p class="coded-message">
+        9-6 / 25-5-19, 20-8-5-14 / 19-5-14-4 / 13-5 / 19-15-13-5 / 12-15-22-5 / 1-14-4 / 9-6 / 14-15, 23-1-9-20 / 23-8-25 / 1-18-5 / 25-15-21 / 18-5-1-4-9-14-7 / 20-8-9-19 / 6-1-18?
+    </p>
+</div>
+
+<p class="cheat-sheet">
+  <strong>The Cheat Sheet:</strong> A=1 | B=2 | C=3 | D=4 | E=5 | F=6 | G=7 | H=8 | I=9 | J=10 | K=11 | L=12 | M=13 | N=14 | O=15 | P=16 | Q=17 | R=18 | S=19 | T=20 | U=21 | V=22 | W=23 | X=24 | Y=25 | Z=26
+</p>
+                
+                <p class="signature">With all my love, <br> Ras 💜</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<body>
+<div class="bookshelf">
+  <div class="book" data-chapter="1" onclick="openBook(this, 1)">
+    <span class="book-title">1</span>
+  </div>
+
+  <div class="book" data-chapter="2" onclick="openBook(this, 2)">
+    <span class="book-title">2</span>
+  </div>
+
+  <div class="book" data-chapter="3" onclick="openBook(this, 3)">
+    <span class="book-title">3</span>
+  </div>
+
+  <div class="book" data-chapter="4" onclick="openBook(this, 4)">
+    <span class="book-title">4</span>
+  </div>
+
+  <div class="book" data-chapter="5" onclick="openBook(this, 5)">
+    <span class="book-title">5</span>
+  </div>
+
+  <div class="book" data-chapter="6" onclick="openBook(this, 6)">
+    <span class="book-title">6</span>
+  </div>
+
+  <div class="book" data-chapter="7" onclick="openBook(this, 7)">
+    <span class="book-title">7</span>
+  </div>
+
+  <div class="book" data-chapter="8" onclick="openBook(this, 8)">
+    <span class="book-title">8</span>
+  </div>
+
+  <div class="book" data-chapter="9" onclick="openBook(this, 9)">
+    <span class="book-title">9</span>
+  </div>
+
+  <div class="book" data-chapter="10" onclick="openBook(this, 10)">
+    <span class="book-title">10</span>
+  </div>
+</div>
+
+<button id="envelope-btn" onclick="openFinalLetter()" style="
+    position: absolute;
+    /* Use the coordinates you found in the step above */
+      left: 810px; 
+      top: 590px; 
+    
+    /* Size should match your envelope size */
+    width: 100px; 
+    height: 70px; 
+    
+    /* MAKING IT INVISIBLE */
+    background: rgba(0,0,0,0); /* Fully transparent */
+    border: none;
+    cursor: pointer;
+    z-index: 1000;
+    outline: none;
+"></button>
+
+  <script src="script.js"></script>
+</body>
+</html>

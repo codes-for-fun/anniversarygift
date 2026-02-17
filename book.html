@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Chapter</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="chapter-view">
+<div class="chapter-book">
+  <div class="chapter-container">
+    <div class="page-side left-side">
+      <h2 id="chapterTitle"></h2>
+      <p id="storyText" class="chapter-text"></p>
+      <button class="back-btn" onclick="goBack()">← Back to shelf</button>
+    </div>
+
+    <div id="game-container" class="page-side right-side">
+      <div id="pattern-unlock-container">
+        <h3 id="lock-status">Connect the dots to unlock the final letter</h3>
+        <canvas id="heartCanvas"></canvas>
+        <button onclick="resetPattern()" class="back-btn">Try Again</button>
+    </div>
+      </div>
+  </div>
+</div>
+  
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,1124 @@
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: url("images/bookshelf.png") center/cover no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  font-family: Georgia, serif;
+}
+
+.book,
+.book * {
+  cursor: pointer;
+}
+
+/* Title */
+.title {
+  margin-top: 30px;
+  font-size: 32px;
+  color: #5a3e2b;
+}
+
+/* Bookshelf */
+.bookshelf {
+  display: flex;
+  gap: 25px;
+  margin-top: 175px;   /* 👈 pushes books DOWN onto shelf */
+  padding: 20px;
+    pointer-events: auto;
+
+}
+
+.bookshelf::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 10px;
+  bottom: -5px;
+  left: 0;
+  background: rgba(0,0,0,0.3);
+  filter: blur(6px);
+}
+
+.bookshelf {
+  position: relative;
+}
+
+body.chapter-view {
+  background: url("images/bookshelf.png") center/cover no-repeat;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+body, body.chapter-view {
+  margin: 0;
+  height: 100vh;
+  overflow: hidden;
+  
+  /* Order: 1. Envelope, 2. Photo, 3. Bookshelf */
+  background: 
+    url("images/envelope.png") no-repeat, 
+    url("images/us.jpeg") no-repeat, 
+    url("images/bookshelf.png") no-repeat center center;
+  
+  background-attachment: fixed;
+
+  /* --- ADJUST POSITION HERE --- */
+  /* [Envelope position], [Photo position], [Bookshelf position] */
+  background-position: 750px 550px, 1035px 559px, center; 
+
+  /* --- ADJUST SIZE HERE --- */
+  /* [Envelope size], [Photo size], [Bookshelf size] */
+  background-size: 220px auto, 90px auto, 100vw 100vh; 
+  /* ---------------------------- */
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  font-family: Georgia, serif;
+}
+
+#letter-overlay {
+    display: none; /* Hidden until clicked */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85); /* Dark blur background */
+    z-index: 2000;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: white;
+}
+
+#heartCanvas {
+    background: white;
+    border-radius: 15px;
+    cursor: crosshair;
+    margin: 20px;
+}
+
+#final-letter-img {
+    max-width: 90%;
+    max-height: 85vh;
+    box-shadow: 0 0 50px rgba(0,0,0,0.5);
+    animation: fadeIn 1.5s;
+}
+
+.close-btn {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background: #ff4d6d;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.letter-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    max-width: 90%;
+    max-height: 85vh;
+}
+
+.letter-text-overlay {
+    position: absolute;
+    top: 10%; /* Adjust based on your letter.png margins */
+    width: 70%;
+    height: 75%;
+    overflow-y: auto; /* Scrollable text if it's long */
+    padding: 20px;
+    font-family: 'Georgia', serif; /* Or use a Google Handwriting font */
+    color: #2c2c2c; /* Dark grey "ink" color */
+    line-height: 1.6;
+    text-align: left;
+    scrollbar-width: none; /* Hides scrollbar for a cleaner look */
+}
+
+/* Customizing the heading inside the letter */
+.letter-heading {
+    font-family: 'Georgia', serif;
+    font-style: italic;
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: #000;
+}
+
+.signature {
+    margin-top: 30px;
+    font-style: italic;
+    font-weight: bold;
+}
+
+
+.chapter-book {
+  /* This centers it vertically even if the body is set to flex-start */
+  margin-top: 50vh;
+  transform: translateY(-50%);
+  
+  /* Ensure it has a background so the 'us' photo stays behind it */
+  position: relative;
+  z-index: 10; 
+}
+
+/* Individual book */
+.book {
+  width: 60px;
+  height: 203px;
+  position: relative;
+  background: linear-gradient(
+    180deg,
+    #6b2f2f,
+    #4a1f1f
+    
+  );
+  border-radius: 4px 6px 6px 4px;
+  box-shadow:
+    inset -3px 0 6px rgba(255,255,255,0.15),
+    inset 3px 0 6px rgba(0,0,0,0.35),
+    2px 4px 8px rgba(0,0,0,0.35);
+  cursor: pointer;
+  transform: rotate(var(--tilt));
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  pointer-events: auto;
+
+  --emboss-offset: 10px;
+  cursor: pointer;
+
+}
+
+.book::before {
+  content: "";
+  position: absolute;
+  top: 12px;
+  left: 10px;
+  width: 2px;
+  height: calc(100% - 24px);
+
+  background: linear-gradient(
+    to bottom,
+    rgba(255,255,255,0.35),
+    rgba(255,255,255,0.1),
+    rgba(0,0,0,0.25)
+  );
+
+  border-radius: 2px;
+  opacity: 0.6;
+  left: var(--emboss-offset);
+
+}
+
+.book::after {
+  content: "";
+  position: absolute;
+  top: 12px;
+  left: 14px;
+  width: 1px;
+  height: calc(100% - 24px);
+
+  background: rgba(0,0,0,0.25);
+  opacity: 0.4;
+}
+
+
+.book .book-title {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%); /* Removed the rotate(-90deg) */
+  display: flex;
+  flex-direction: column;      /* Stacks the 1 and 0 vertically */
+  align-items: center;
+  text-align: center;
+  line-height: 0.8;            /* Keeps the 1 and 0 close together */
+}
+
+.book-title {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) rotate(-90deg);
+  transform-origin: center;
+  font-family: Georgia, serif;
+  font-size: 20px;
+  letter-spacing: 1px;
+  color: #d4af37;
+  text-shadow:
+    0 0 1px rgba(255,215,150,0.6),
+    0 0 4px rgba(0,0,0,0.6);
+  white-space: nowrap;
+}
+
+.coded-message {
+  font-family: 'Caveat', cursive; /* A nice handwritten font */
+  font-size: 1.2rem;
+  letter-spacing: 2px;
+  line-height: 1.4;
+  color: #4a4a4a;
+}
+
+.cheat-sheet {
+  font-family: sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 1px;
+  text-transform: uppercase; /* Makes it look like a neat footer */
+  opacity: 0.6;
+}
+
+
+
+.book[data-chapter="1"] { background: linear-gradient(to right, #212f3c, #566573, #212f3c); }
+.book[data-chapter="2"] { background: linear-gradient(to right, #1b2631, #2e4053, #1b2631); }
+.book[data-chapter="3"] { background: linear-gradient(to right, #3e3a5e, #6b66a5, #3e3a5e); }
+.book[data-chapter="4"] { background: linear-gradient(to right, #5a3b5f, #8c5c91, #5a3b5f); }
+.book[data-chapter="5"] { background: linear-gradient(to right, #4a3352, #6b4d75, #4a3352); }
+.book[data-chapter="6"] { background: linear-gradient(to right, #1f5a4a, #3f8c7a, #1f5a4a); }
+.book[data-chapter="7"] { background: linear-gradient(to right, #34495e, #5d6d7e, #34495e); }
+.book[data-chapter="8"] { background: linear-gradient(to right, #3d5a80, #5f84b1, #3d5a80); }
+.book[data-chapter="9"] { background: linear-gradient(to right, #704214, #b87333, #704214); }
+.book[data-chapter="10"]{ background: linear-gradient(to right, #4a4a4a, #7a7a7a, #4a4a4a); }
+
+
+
+/* Hover effect */
+.book:hover {
+  transform: translateY(-10px) scale(1.05);
+  box-shadow:
+    inset -3px 0 5px rgba(0,0,0,0.4),
+    0 16px 20px rgba(0,0,0,0.6);
+}
+
+.book.pulled {
+  transform: translateY(-10px) translateX(25px) scale(1.08) rotate(2deg);
+  box-shadow:
+    inset -3px 0 5px rgba(0,0,0,0.4),
+    0 20px 30px rgba(0,0,0,0.7);
+  z-index: 10;
+}
+
+
+body.fade-out {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+
+/* Book page style */
+.book-page {
+  margin: 100px auto;
+  background: #fffaf3;
+  padding: 50px;
+  width: 65%;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+  font-size: 18px;
+  color: #4b3a2a;
+}
+/* Floating dust particles */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+
+  background-image:
+    radial-gradient(rgba(255,255,255,0.6) 1px, transparent 1px),
+    radial-gradient(rgba(255,255,255,0.4) 1px, transparent 1px);
+
+  background-size: 80px 80px, 120px 120px;
+  background-position: 0 0, 40px 60px;
+
+  animation: dustFloat 30s linear infinite;
+  opacity: 0.35;
+}
+
+/* Soft sunlight overlay */
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+
+  background: radial-gradient(
+    circle at top left,
+    rgba(255, 240, 200, 0.45),
+    transparent 60%
+  );
+}
+
+/* Dust movement animation */
+@keyframes dustFloat {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-800px);
+  }
+}
+
+.book-open {
+  background: #f3e9dc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.book-page {
+  width: 700px;
+  height: 420px;
+  display: flex;
+  perspective: 1200px;
+}
+
+.page {
+  width: 50%;
+  height: 100%;
+  background: #fffaf3;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+}
+
+.page.left {
+  transform-origin: right;
+  animation: openLeft 1.2s ease forwards;
+}
+
+.page.right {
+  padding: 40px;
+}
+
+@keyframes openLeft {
+  from {
+    transform: rotateY(0deg);
+  }
+  to {
+    transform: rotateY(-160deg);
+  }
+}
+
+.chapter-view {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Chapter card on top of bookshelf */
+.chapter-page {
+  background: url("page.png") center / contain no-repeat;
+  
+  width: 80%;
+  max-width: 900px;
+  aspect-ratio: 3 / 2;
+  
+  border-radius: 18px; /* keep it cute like before */
+
+  /* POP-UP EFFECT */
+  box-shadow:
+    0 18px 40px rgba(0, 0, 0, 0.35),   /* depth shadow */
+    0 0 25px rgba(255, 255, 255, 0.35); /* soft glow */
+
+  filter: brightness(1.02) contrast(1.05);
+
+  padding: 60px;
+}
+
+.chapter-page:hover {
+  box-shadow:
+    0 25px 55px rgba(0, 0, 0, 0.45),
+    0 0 35px rgba(255, 255, 255, 0.45);
+}
+
+
+.chapter-page h2 {
+  margin-top: 0;
+  font-size: 32px;
+  color: #5a3e2b;
+  text-align: center;
+}
+
+.chapter-text {
+  margin-top: 30px;
+  font-size: 18px;
+  line-height: 1.8;
+  color: #4b3a2a;
+  white-space: pre-line;
+}
+
+.back-btn {
+  margin-top: 40px;
+  background: transparent;
+  border: none;
+  font-size: 16px;
+  color: #7a553a;
+  cursor: pointer;
+}
+
+.chapter-book {
+  width: 900px;
+  height: 520px;
+
+  background: url("images/page.png") center/cover no-repeat;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 28px; /* clean rounded page edges */
+
+  box-shadow:
+    0 18px 40px rgba(0,0,0,0.35),
+    inset 0 0 0 1px rgba(0,0,0,0.05);
+
+  position: relative;
+}
+
+
+
+.chapter-content {
+  width: 70%;
+  text-align: center;
+  font-family: Georgia, serif;
+  color: #4b3a2a;
+}
+
+.chapter-content h2 {
+  margin-bottom: 20px;
+  font-size: 26px;
+}
+
+.chapter-content p {
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+
+.back-btn:hover {
+  text-decoration: underline;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.chapter-container {
+    display: flex;
+    width: 90%;
+    height: 90%;
+    gap: 40px;
+    align-items: flex-start; /* Shifts everything to the top */
+    padding-top: 50px;       /* Adds a nice gap at the very top */
+}
+
+.page-side {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    /* This is the key: */
+    align-self: stretch; 
+    height: 100%;
+    position: relative;
+}
+
+/* --- Emoji Game Styles --- */
+.emoji-game {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; /* Align content to the top of its side */
+    margin-top: -20px;           /* Pulls the game up higher */
+}
+
+.match-item {
+  background: rgba(255, 255, 255, 0.5);
+  padding: 10px;
+  border: 2px dashed #a44a3f;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 100%;
+  text-align: center;
+  transition: all 0.3s;
+}
+
+.match-item.selected {
+  background: #d4af37;
+  color: white;
+  border-style: solid;
+}
+
+.match-item.matched {
+  background: #606c38;
+  color: white;
+  border-color: #606c38;
+  cursor: default;
+}
+
+.game-instruction {
+    font-style: italic;
+    color: #5a3e2b;
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+    text-align: center;
+}
+
+.game-columns {
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    flex: 1;
+}
+
+.match-item {
+    font-size: 2rem; /* Makes emojis nice and big */
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.6);
+    border: 2px solid transparent;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+.match-item.selected {
+    border-color: #d4af37;
+    background: #fff8e1;
+    transform: scale(1.05);
+}
+
+.match-item.matched {
+    background: #e8f5e9;
+    border-color: #81c784;
+    cursor: default;
+    opacity: 0.7;
+}
+
+/* Ensure the game status doesn't hide */
+#game-status {
+    margin-top: 15px;
+    font-weight: bold;
+    color: #2e7d32;
+    text-align: center;
+    width: 100%;
+    min-height: 24px;       /* Reserves space so the page doesn't "jump" when it appears */
+}
+
+/* Container for the game */
+#game-container {
+    flex: 1; /* Makes the container fill all available vertical space */
+    width: 100%;
+    position: relative;
+    overflow: hidden; 
+    display: flex;
+    flex-direction: column;
+}
+
+.floating-heart {
+    position: absolute;
+    bottom: -50px;
+    font-size: 2.5rem; /* Slightly bigger icons */
+    cursor: pointer;
+    user-select: none;
+    z-index: 10; /* Ensures it's on top of the background */
+    padding: 20px; /* This makes the clickable area much larger! */
+    transition: transform 0.1s;
+    animation: floatUp 4s linear forwards; /* Changed infinite to forwards */
+    
+    /* Center the heart in its larger padding box */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.floating-heart:active {
+    transform: scale(0.8); /* Visual feedback when clicked */
+}
+
+.floating-heart:hover {
+    transform: scale(1.3);
+}
+
+@keyframes floatUp {
+    0% { transform: translateY(0) translateX(0); opacity: 1; }
+    50% { transform: translateY(-200px) translateX(20px); }
+    100% { transform: translateY(-500px) translateX(-20px); opacity: 0; }
+}
+
+.score-board {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-family: 'Georgia', serif;
+    font-size: 1.2rem;
+    color: #a44a3f;
+}
+
+/* The Jar Container */
+.jar-wrapper {
+    position: relative;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    padding-bottom: 20px;
+}
+
+/* Ensure the jar is ready to hold absolute positioned words */
+.jar {
+    width: 160px;
+    height: 200px;
+    border: 4px solid #5a3e2b;
+    border-top: none;
+    border-radius: 0 0 40px 40px;
+    position: relative; /* Words will align to this */
+    background: rgba(255, 255, 255, 0.2);
+    overflow: hidden; 
+    display: flex;
+    justify-content: center;
+}
+
+/* The Lid Area */
+.jar::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 10px;
+    background: #5a3e2b;
+    border-radius: 5px;
+}
+
+/* Base style for words */
+.trait-word {
+    position: absolute;
+    padding: 5px 10px;
+    background: #fdf2f2;
+    border: 1px solid #a44a3f;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    white-space: nowrap; /* Prevents text from wrapping inside the small jar */
+    z-index: 5;
+    transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* When a word is inside the jar */
+.in-jar {
+    pointer-events: none;
+    position: absolute !important; /* Overrides the top/left from the word-bank */
+}
+
+.trait-word:hover {
+    transform: scale(1.1);
+    background: #a44a3f;
+    color: white;
+}
+
+/* Animation class when dropped */
+.dropped {
+    pointer-events: none; /* Can't click again */
+}
+
+
+.puzzle-board {
+    display: grid;
+    grid-template-columns: repeat(3, 80px);
+    grid-template-rows: repeat(3, 80px);
+    gap: 3px;
+    background-color: #5a3e2b; /* Acts as the "border" between pieces */
+    padding: 3px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.puzzle-piece {
+    width: 80px;
+    height: 80px;
+    background-size: 240px 240px; /* This must be 3x the piece size */
+    cursor: pointer;
+    transition: transform 0.1s;
+}
+
+.puzzle-piece.selected {
+    outline: 3px solid #d4af37;
+    z-index: 10;
+}
+
+
+.stick-game-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    padding: 20px;
+}
+
+.stick-container {
+    position: relative;
+    width: 100%;
+    height: 250px; /* Adjust based on your book size */
+    background: #fdf6e3; 
+    border-radius: 15px;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+    overflow: hidden;
+}
+
+.stick {
+    position: absolute;
+    width: 35px;
+    height: 5px;
+    /* This makes it look like wood */
+    background: linear-gradient(to bottom, #6d4c41, #5d4037);
+    border-radius: 3px;
+    box-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+    transition: all 1.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.message-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.8rem;
+    font-family: 'Handlee', cursive;
+    color: #5d4037;
+    text-shadow: 1px 1px 0px #fff;
+    letter-spacing: 3px;
+    opacity: 0;
+    text-align: center;
+    width: 100%;
+    transition: opacity 2.5s ease;
+}
+
+.assemble-btn {
+    background-color: gray;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 25px;
+    font-family: 'Handlee', cursive;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: transform 0.2s;
+}
+
+.assemble-btn:hover {
+    transform: scale(1.05);
+}
+
+
+.interaction-area {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    /* Soft pink/peach gradient for a warm vibe */
+    background: radial-gradient(circle, #fff0f3 0%, #ffdde1 100%);
+    border: 3px solid #fff;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    border-radius: 20px;
+    display: flex;
+    align-items: flex-end; /* Sit them on the bottom */
+    overflow: hidden;
+}
+
+/* Decorative Bokeh Circles */
+.interaction-area::before, .interaction-area::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.4);
+    z-index: 1;
+}
+.interaction-area::before { width: 100px; height: 100px; top: -20px; right: -20px; }
+.interaction-area::after { width: 60px; height: 60px; bottom: 40px; left: 10%; }
+
+.character {
+    height: 220px; 
+    position: absolute;
+    bottom: 10px;
+    user-select: none;
+    pointer-events: auto;
+}
+
+.girl {
+    position: absolute;
+    left: 30px;
+    z-index: 10; /* Higher number = on top */
+    cursor: grab;
+    transition: transform 0.1s; /* Subtle smoothness */
+}
+
+.boy {
+    position: absolute;
+    right: 30px;
+    z-index: 5; /* Lower number = underneath */
+}
+
+.girl:active {
+    cursor: grabbing;
+}
+
+.interaction-area {
+    position: relative;
+    width: 100%;
+    height: 380px;
+    background: radial-gradient(circle, #fff5f7 20%, #ffdee1 100%);
+    border: 5px solid #ffffff;
+    border-radius: 25px;
+    box-shadow: 0 10px 30px rgba(255, 182, 193, 0.3);
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+}
+
+
+.kiss-heart {
+    position: absolute;
+    top: 25%; /* Adjust so it's above their heads */
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    font-size: 3rem;
+    z-index: 100; /* Make sure it's on top of everything */
+    opacity: 0;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    pointer-events: none;
+}
+
+.kiss-heart.show {
+    opacity: 1 !important;
+    transform: translate(-50%, -50%) scale(0.7) !important;
+}
+
+
+.ice-roll {
+    position: absolute;
+    width: 35px;
+    height: 70px;
+    /* This gradient makes it look like a roll of cream */
+    background: repeating-linear-gradient(90deg, #fff5f8, #f8bbd0 10px, #fff5f8 20px);
+    border-radius: 8px;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+    transition: all 0.8s cubic-bezier(0.6, -0.28, 0.735, 0.045);
+    z-index: 10;
+}
+
+.ice-roll-animate {
+    width: 100%;
+    height: 0;
+    /* Chocolate Palette: Deep Cocoa, Milk Chocolate, and Cream */
+    background: linear-gradient(
+        to bottom,
+        #a1887f 0%,    /* Soft Coffee */
+        #bcaaa4 20%,   /* Milk Tea */
+        #efebe9 40%,   /* Pure Cream */
+        #d7ccc8 60%,   /* Hazelnut */
+        #bcaaa4 80%,   /* Milk Tea */
+        #a1887f 100%   /* Soft Coffee */
+    );
+    border-radius: 8px;
+    /* Adjusted shadow to be darker for chocolate */
+    box-shadow: inset 2px 0 5px rgba(0,0,0,0.3), 2px 2px 8px rgba(0,0,0,0.4);
+    transition: height 0.6s ease-out;
+    pointer-events: none;
+}
+
+.roll-wrapper {
+    position: absolute;
+    width: 40px;
+    height: 70px;
+    display: flex;
+    align-items: flex-end;
+    transition: all 0.8s cubic-bezier(0.5, 0, 0.5, 1); /* Smoother movement */
+    z-index: 100; /* Above everything */
+}
+
+.ice-cream-plate {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    background: #e0e0e0;
+    border: 8px solid #bdc3c7;
+    border-radius: 15px;
+    transition: opacity 0.8s ease, transform 0.8s ease; /* Smooth fade out */
+    z-index: 5;
+}
+
+.final-popup-img {
+    position: absolute;
+    top: 50%; /* Centered in the wrapper */
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.5);
+    width: 320px; /* Slightly bigger to fill the space left by the plate */
+    opacity: 0;
+    transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    pointer-events: none;
+    z-index: 200;
+}
+
+.final-popup-img.show {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+/* Ensure the plate doesn't hide the image */
+.ice-cream-wrapper {
+    position: relative;
+    width: 100%;
+    height: 550px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.game-instruction {
+    margin-top: 20px;
+    font-family: 'Handlee', cursive;
+    font-size: 1.2rem;
+    transition: color 0.5s ease;
+}
+
+
+.bouquet-wrapper {
+    text-align: center;
+    position: relative;
+    height: 500px;
+}
+
+.bouquet-area {
+    position: relative;
+    width: 300px;
+    height: 400px;
+    margin: 0 auto;
+    border-bottom: 2px solid #eee; /* Floor line */
+    cursor: crosshair;
+}
+
+.vase {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 100px;
+    background: rgba(255, 255, 255, 0.3);
+    border: 2px solid #fff;
+    border-radius: 10px 10px 40px 40px;
+    backdrop-filter: blur(5px);
+    z-index: 5;
+}
+
+:root {
+    --m-color: #ff4d6d; /* Flower color */
+}
+
+.flower {
+    position: absolute;
+    bottom: 60px; /* Adjust based on your vase height */
+    left: 50%;
+    transform-origin: bottom center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 10;
+}
+
+/* The Stem Growth */
+.flower__line {
+    width: 2px;
+    height: 0; /* Starts at 0 */
+    background-image: linear-gradient(to top, rgba(0,0,0,0), #6d4c41);
+    border-radius: 4px;
+    animation: grow-stem 2s forwards;
+}
+
+/* The Petals (The "Head") */
+.flower__head {
+    width: 40px;
+    height: 40px;
+    opacity: 0;
+    transform: scale(0);
+    animation: bloom 1s 1.5s forwards; /* Starts after stem grows */
+    font-size: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@keyframes grow-stem {
+    to { height: 150px; } /* Adjust for how tall you want them */
+}
+
+@keyframes bloom {
+    to { 
+        opacity: 1; 
+        transform: scale(1.2) translateY(-10px); 
+    }
+}
+
+
+#bouquet-area {
+    position: relative;
+    width: 100%;
+    height: 500px;
+    margin-top: 50px;
+    cursor: pointer;
+    overflow: hidden; /* Keeps flowers from growing off-screen */
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+#vase-img {
+    width: 200px; /* Adjust based on your image size */
+    z-index: 10;
+    position: relative;
+    pointer-events: none; /* Allows clicks to pass through to the area */
+}
+
+.flower-png {
+    position: absolute;
+    bottom: 80px; /* Adjust so stems start inside the vase mouth */
+    transform-origin: bottom center;
+    animation: growFlower 1.5s ease-out forwards;
+    z-index: 5; /* Behind the vase */
+}
+
+@keyframes growFlower {
+    0% {
+        transform: scale(0) translateY(20px) rotate(0deg);
+        opacity: 0;
+    }
+    100% {
+        /* We will set the final rotation in JS to make it look natural */
+        opacity: 1;
+    }
+}
